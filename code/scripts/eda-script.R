@@ -37,7 +37,7 @@ for (col in c("TV", "Radio", "Newspaper", "Sales")) {
 correlation_matrix_generator(csv_data, data_file = data_file, output_file = output_file)
 sink()
 
-png("images/scatterplot_matrix.png")
+png("images/scatterplot-matrix.png")
 pairs(csv_data[2:5])
 dev.off()
 

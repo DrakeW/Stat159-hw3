@@ -1,0 +1,40 @@
+Summary Statistics for TV 
+
+Minimum: 0.70 
+Maximum: 296.40 
+Median : 149.75 
+Mean   : 147.04 
+Std Dev: 85.85 
+
+Summary Statistics for Radio 
+
+Minimum: 0.00 
+Maximum: 49.60 
+Median : 22.90 
+Mean   : 23.26 
+Std Dev: 14.85 
+
+Summary Statistics for Newspaper 
+
+Minimum: 0.30 
+Maximum: 114.00 
+Median : 25.75 
+Mean   : 30.55 
+Std Dev: 21.78 
+
+Summary Statistics for Sales 
+
+Minimum: 1.60 
+Maximum: 27.00 
+Median : 12.90 
+Mean   : 14.02 
+Std Dev: 5.22 
+
+Correlation Matrix 
+
+"X" "TV" "Radio" "Newspaper" "Sales"
+"X" 1 0.0177146949115877 -0.110680441019475 -0.154944143778411 -0.0516162524736056
+"TV" 0.0177146949115877 1 0.0548086644658301 0.056647874965057 0.782224424861606
+"Radio" -0.110680441019475 0.0548086644658301 1 0.354103750761175 0.576222574571055
+"Newspaper" -0.154944143778411 0.056647874965057 0.354103750761175 1 0.228299026376165
+"Sales" -0.0516162524736056 0.782224424861606 0.576222574571055 0.228299026376165 1

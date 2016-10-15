@@ -62,9 +62,11 @@ col_data <- c(residual_std_error(reg, csv_data$Sales), r_squared(reg, csv_data$S
 stats <- data.frame(col_names, col_data)
 print(xtable(stats, caption = "RSE, R-Squared, F-Statistics of Multiple Linear Regression Model"))
 ```
-According to statistics shown above. RSE tells us usually the prediction error is `r stats[1,2]` units; R-squared tells us `r format(stats[2,2]*100, digits=3)`% of changes in sales can be related to changing in advertising budgest, and this number is a really good sign of model reliability. If sales has nothing to do advertising, F-statistics should be close to 1, but in our statistics, F-statistics is `r stats[3,2]` which is much greater than 1, this also shows strong correlation between sales and advertising. Therefore, we can be sure that the relationship between sales and advertising exists.
+According to statistics shown above. RSE tells us usually the prediction error is `r stats[1,2]` units; R-squared tells us `r format(stats[2,2]*100, digits=2)`% of changes in sales can be related to changing in advertising budgest, and this number is a really good sign of model reliability. If sales has nothing to do advertising, F-statistics should be close to 1, but in our statistics, F-statistics is `r stats[3,2]` which is much greater than 1, this also shows strong correlation between sales and advertising. Therefore, we can be sure that the relationship between sales and advertising exists.
+
+This is scatterplot with Residual vs Fitted Value
 
 \includegraphics[width=300pt]{../images/residual-plot.png}
 
 ## Conclusions
-After training both simple linear regression models and multiple linear regression models. We find out that multiple advertising tunnels are usually correlated and conclusion drawn simply from simple linear regression model is not inclusive. And from the RSE, R-Squared, F-Statistics of our multiple linear regression model we conclude that this model is reliable.
+After training both simple linear regression models and multiple linear regression models, we find out that multiple advertising tunnels are usually correlated and conclusion drawn simply from simple linear regression model is not inclusive. And from the RSE, R-Squared, F-Statistics of our multiple linear regression model we conclude that this model is reliable.

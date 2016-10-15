@@ -1,4 +1,4 @@
-# sum of the squares of residuals (deviations predicted from actual empirical values of data). 
+# Description: sum of the squares of residuals (deviations predicted from actual empirical values of data). 
 # Input: regression object
 # Output: residual sum squares number
 residual_sum_squares <- function(reg) {

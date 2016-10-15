@@ -30,18 +30,12 @@ output_file <- "data/eda-output.txt"
 data_file <- "data/correlation-matrix.RData"
 
 sink(file = output_file)
-summary_stats_generator(csv_data$TV, "TV", output_file)
-summary_stats_generator(csv_data$Radio, "Radio", output_file)
-summary_stats_generator(csv_data$Newspaper, "Newspaper", output_file)
-summary_stats_generator(csv_data$Sales, "Sales", output_file)
-
+for (col in c("TV", "Radio", "Newspaper", "Sales")) {
+  summary_stats_generator(csv_data[,col], col, output_file)
+  histogram_generator(csv_data[,col], col)
+}
 correlation_matrix_generator(csv_data, data_file = data_file, output_file = output_file)
 sink()
-
-histogram_generator(csv_data$TV, "TV")
-histogram_generator(csv_data$Newspaper, "Newspaper")
-histogram_generator(csv_data$Radio, "Radio")
-histogram_generator(csv_data$Sales, "Sales")
 
 png("images/scatterplot_matrix.png")
 pairs(csv_data[2:5])

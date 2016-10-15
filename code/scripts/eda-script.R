@@ -2,14 +2,12 @@ csv_data <- read.csv("data/Advertising.csv")
 
 # summary statistics
 summary_stats_generator <- function(data, name, output_file) {
-  
   cat("Summary Statistics for", name, "\n\n", file = output_file, append = TRUE)
   cat(sprintf("Minimum: %0.2f", min(data)), "\n", file = output_file, append = TRUE)
   cat(sprintf("Maximum: %0.2f", max(data)), "\n", file = output_file, append = TRUE)
   cat(sprintf("Median : %0.2f", median(data)), "\n", file = output_file, append = TRUE)
   cat(sprintf("Mean   : %0.2f", mean(data)), "\n", file = output_file, append = TRUE)
   cat(sprintf("Std Dev: %0.2f", sd(data)), "\n\n", file = output_file, append = TRUE)
-  
 }
 
 # correlation matrix

@@ -16,11 +16,11 @@ eda: code/scripts/eda-script.R data
 regression: code/scripts/regression-script.R data
 	Rscript $<
 	
-report: report/report.Rmd regression eda function 
+report: report/report.Rmd regression eda
 	Rscript -e "library(rmarkdown); render('report/report.Rmd', 'pdf_document')"
 	
 session: code/scripts/session-info-script.R
-	RScript -e $<
+	RScript $<
 	
 clean:
 	rm -f $(output)

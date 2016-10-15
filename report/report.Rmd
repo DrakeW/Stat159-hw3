@@ -1,0 +1,70 @@
+---
+title: "Multiple Regression Analysis"
+author: "Junyu Wang"
+date: "Oct 14th, 2016"
+header-includes: 
+- \usepackage{float}
+---
+
+## Abstract
+In this report, we reproduce the main results displayed in section 3.2 *Multiple Linear Regression* (chapter 3) of the book *[An Introduction to Statistical Learning](http://www-bcf.usc.edu/~gareth/ISL/)*.
+
+## Introduction
+The overall goal is to provide insights about whether advertising through different tunnels improves sales. In this report, we look at how TV, Radio and Newspaper affect sales number. We apply multiple linear regression models between different advertising tunnels and sales, and therefore can use those models to maximize sales number with certain amount of advertising budget.
+
+## Data
+The [advertising dataset](http://www-bcf.usc.edu/~gareth/ISL/Advertising.csv) consists of _Sales_(in thousands of units) of a particular product in 200 different markets, along with advertising budgets (in thousands of dollars) for the product in each of those markets for three different media (_TV_, _Newspaper_ and _Radio_). 
+
+## Methodology
+We consider _Sales_ and _TV_, _Radio_, _Newspaper_ in our dataset and try to fit them in a multiple regression model:
+
+\begin{center}
+
+$Sales = \beta_0 + \beta_1TV + \beta_2Radio + \beta_3Newspaper + e$
+
+\end{center}
+
+In this equation, the coefficients $\beta_0$, $\beta_1$, $\beta_2$, $\beta_3$ represents the association between Sales and the three advertising tunnels repsectively, and e is the error term. In order to find the best regression model, we need to find the best coefficients that minimizes the sum of squared residual.
+
+## Results
+We get the 3 simple linear regression models' coefficients in tables below:
+```{r results='asis', echo=FALSE}
+load(file = "../data/regression.RData")
+library(xtable)
+options(xtable.comment = FALSE, 
+        xtable.table.placement = "H")
+table1 <- xtable(summary(reg_tv), caption = "Linear Regression of Sales on TV")
+table2 <- xtable(summary(reg_radio), caption = "Linear Regression of Sales on Radio")
+table3 <- xtable(summary(reg_newspaper), caption = "Linear Regression of Sales on Newspaper")
+print(table1, comment=FALSE)
+print(table2, comment=FALSE)
+print(table3, comment=FALSE)
+```
+From the table above, we can see that the three slops are `r format(reg_tv$coefficients[2], 3)` for TV, `r format(reg_radio$coefficients[2], 3)` for Radio, and `r format(reg_newspaper$coefficients[2], 3)` for Newspaper. And because Radio is has the steepest slope, we can see that if we were only allowed to invest in oen of the three media, Radio will benefit us the most.
+
+However, most of the times the three medias are not completely separated, and they might correlate with each other to affect sales number. Therefore in order to gain insights into their correlation, we build a multiple linear regression model as described below.
+```{r results='asis', echo=FALSE}
+print(xtable(reg_summary, caption = "Multiple Linear Regression of Sales on TV, Radio, Newspaper"))
+```
+we can see that the coefficients between sales and TV, radio are statistically significant, and because the coefficients between Newspaper and TV has a large p-value, we can treat it as a sign of weak relation. And this can be further demonstrated with the correlation matrix below.
+```{r results='asis', echo=FALSE}
+load("../data/correlation-matrix.RData")
+print(xtable(format(cor_matrix, digits = 4), caption = "Correlation Matrix"))
+```
+From the matrix we can see that the correlation bewteen Radio and Newspaper is `r format(cor_matrix[2,3], 3)`, this shows that radio and newspaper are usually used together. Therefore when sales number increases as Newspaper advertising budget increases, this doesn't necessarily mean it's newspaper that boosts the sales number, instead it's because in the meantime Radio advertising budget also increases.
+
+So the final question is "Is our multiple linear regression model reliable?" We can show this from the table below
+```{r results='asis', echo=FALSE}
+csv_data <- read.csv("../data/Advertising.csv")
+source("../code/functions/regression-functions.R")
+col_names <- c("Residual Standard Error", "R-square", "F-Statistics")
+col_data <- c(residual_std_error(reg, csv_data$Sales), r_squared(reg, csv_data$Sales), f_statistic(reg, csv_data$Sales))
+stats <- data.frame(col_names, col_data)
+print(xtable(stats, caption = "RSE, R-Squared, F-Statistics of Multiple Linear Regression Model"))
+```
+According to statistics shown above. RSE tells us usually the prediction error is `r stats[1,2]` units; R-squared tells us `r format(stats[2,2]*100, digits=3)`% of changes in sales can be related to changing in advertising budgest, and this number is a really good sign of model reliability. If sales has nothing to do advertising, F-statistics should be close to 1, but in our statistics, F-statistics is `r stats[3,2]` which is much greater than 1, this also shows strong correlation between sales and advertising. Therefore, we can be sure that the relationship between sales and advertising exists.
+
+\includegraphics[width=300pt]{../images/residual-plot.png}
+
+## Conclusions
+After training both simple linear regression models and multiple linear regression models. We find out that multiple advertising tunnels are usually correlated and conclusion drawn simply from simple linear regression model is not inclusive. And from the RSE, R-Squared, F-Statistics of our multiple linear regression model we conclude that this model is reliable.

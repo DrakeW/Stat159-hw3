@@ -51,7 +51,7 @@ we can see that the coefficients between sales and TV, radio are statistically s
 load("../data/correlation-matrix.RData")
 print(xtable(format(cor_matrix, digits = 4), caption = "Correlation Matrix"))
 ```
-From the matrix we can see that the correlation bewteen Radio and Newspaper is `r format(cor_matrix[3,2], 3)`, this shows that radio and newspaper are usually used together. Therefore when sales number increases as Newspaper advertising budget increases, this doesn't necessarily mean it's newspaper that boosts the sales number, instead it's because in the meantime Radio advertising budget also increases.
+From the matrix we can see that the correlation bewteen Radio and Newspaper is `r format(cor_matrix[4,3], 3)`, this shows that radio and newspaper are usually used together. Therefore when sales number increases as Newspaper advertising budget increases, this doesn't necessarily mean it's newspaper that boosts the sales number, instead it's because in the meantime Radio advertising budget also increases.
 
 So the final question is "Is our multiple linear regression model reliable?" We can show this from the table below
 ```{r results='asis', echo=FALSE}
